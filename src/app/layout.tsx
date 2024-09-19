@@ -7,6 +7,7 @@ import { Provider, useDispatch } from "react-redux";
 import store, { AppDispatch } from "@/stores";
 import { getLoginUserUsingGet } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUser";
+import { AccessLayout } from "@/access/AccessLayout";
 
 /**
  * 全局初始化
@@ -23,14 +24,14 @@ const InitLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
     const res = await getLoginUserUsingGet();
     if (res.data) {
     } else {
-      setTimeout(() => {
-        const testUser = {
-          userName: "测试",
-          id: 1,
-          userAvatar: "assets/logo.png",
-        };
-        dispatch(setLoginUser(testUser));
-      }, 3000);
+      // setTimeout(() => {
+      //   const testUser = {
+      //     userName: "测试",
+      //     id: 1,
+      //     userAvatar: "assets/logo.png",
+      //   };
+      //   dispatch(setLoginUser(testUser));
+      // }, 3000);
     }
   }, []);
   useEffect(() => {
@@ -50,7 +51,9 @@ export default function RootLayout({
         <AntdRegistry>
           <Provider store={store}>
             <InitLayout>
-              <BasicLayout>{children}</BasicLayout>
+              <BasicLayout>
+                <AccessLayout>{children}</AccessLayout>
+              </BasicLayout>
             </InitLayout>
           </Provider>
         </AntdRegistry>

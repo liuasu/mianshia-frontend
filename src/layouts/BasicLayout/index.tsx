@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { ProLayout } from "@ant-design/pro-components";
 import { Dropdown, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { Props } from "next/script";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -16,6 +16,7 @@ import "./index.css";
 import { menus } from "../../../config/menu";
 import { useSelector } from "react-redux";
 import { RootState } from "@/stores";
+import { getAccessibleMenus } from "@/access/MenuAccess";
 
 interface Props {
   children: React.ReactNode;
@@ -54,10 +55,11 @@ export default function BasicLayout({ children }: Props) {
           pathname,
         }}
         avatarProps={{
-          src: loginUser.userAvatar ||
+          src:
+            loginUser?.userAvatar ||
             "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg",
           size: "small",
-          title: loginUser.userName || "七妮妮",
+          title: loginUser?.userName || "七妮妮",
           render: (props, dom) => {
             return (
               <Dropdown
@@ -109,7 +111,7 @@ export default function BasicLayout({ children }: Props) {
         }}
         onMenuHeaderClick={(e) => console.log(e)}
         menuDataRender={() => {
-          return menus;
+          return getAccessibleMenus(loginUser, menus);
         }}
         menuItemRender={(item, dom) => (
           // 定义菜单项如何渲染
