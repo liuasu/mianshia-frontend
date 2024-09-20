@@ -1,22 +1,22 @@
 "use client";
-import {
-  GithubFilled,
-  LogoutOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { GithubFilled, LogoutOutlined } from "@ant-design/icons";
 import { ProLayout } from "@ant-design/pro-components";
-import { Dropdown, Input } from "antd";
-import React, { useState } from "react";
+import { Dropdown, message } from "antd";
+import React from "react";
 import { Props } from "next/script";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import GlobalFooter from "@/commpoents/GlobalFooter";
 import "./index.css";
 import { menus } from "../../../config/menu";
-import { useSelector } from "react-redux";
-import { RootState } from "@/stores";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/stores";
 import { getAccessibleMenus } from "@/access/MenuAccess";
+import { userLogoutUsingPost } from "@/api/userController";
+import { setLoginUser } from "@/stores/loginUser";
+import { DEFAULT_USER } from "@/constants/user";
+import {SearchInput} from "@/layouts/BasicLayout/commpoents/SearchInput";
 
 interface Props {
   children: React.ReactNode;
@@ -31,6 +31,24 @@ export default function BasicLayout({ children }: Props) {
   const pathname = usePathname();
 
   const loginUser = useSelector((state: RootState) => state.loginUser);
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+  /**
+   * 退出登录
+   * @param values
+   */
+  const userLogout = async () => {
+    try {
+      const res = await userLogoutUsingPost();
+      if (res.data) {
+        message.success("已退出!");
+        dispatch(setLoginUser(DEFAULT_USER));
+        router.push("/user/login");
+      }
+    } catch (e: any) {
+      message.error("操作失败，" + e.message);
+    }
+  };
 
   return (
     <div
@@ -56,11 +74,21 @@ export default function BasicLayout({ children }: Props) {
         }}
         avatarProps={{
           src:
-            loginUser?.userAvatar ||
+            loginUser.userAvatar ||
             "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg",
-          size: "small",
           title: loginUser?.userName || "七妮妮",
           render: (props, dom) => {
+            if (!loginUser.id) {
+              return (
+                <div
+                  onClick={() => {
+                    router.push("/user/login");
+                  }}
+                >
+                  {dom}
+                </div>
+              );
+            }
             return (
               <Dropdown
                 menu={{
@@ -71,6 +99,12 @@ export default function BasicLayout({ children }: Props) {
                       label: "退出登录",
                     },
                   ],
+                  onClick: async (event: { key: React.Key }) => {
+                    const { key } = event;
+                    if (key === "logout") {
+                      userLogout();
+                    }
+                  },
                 }}
               >
                 {dom}
@@ -125,31 +159,3 @@ export default function BasicLayout({ children }: Props) {
     </div>
   );
 }
-
-const SearchInput = () => {
-  return (
-    <div
-      key="SearchOutlined"
-      aria-hidden
-      style={{
-        display: "flex",
-        alignItems: "center",
-        marginInlineEnd: 24,
-      }}
-      onMouseDown={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-      }}
-    >
-      <Input
-        style={{
-          borderRadius: 4,
-          marginInlineEnd: 12,
-        }}
-        prefix={<SearchOutlined />}
-        placeholder="搜索题目"
-        variant="borderless"
-      />
-    </div>
-  );
-};

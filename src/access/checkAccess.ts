@@ -16,9 +16,14 @@ export const checkAccess = (
     return true;
   }
   if (needAccess === AccessEnum.USER) {
-    return needAccess !== AccessEnum.NOT_LOGIN;
+    if (loginUserAccess === AccessEnum.NOT_LOGIN) {
+      return false;
+    }
   }
   if (needAccess === AccessEnum.ADMIN) {
-    return needAccess !== AccessEnum.ADMIN;
+    if (loginUserAccess === AccessEnum.NOT_LOGIN) {
+      return false;
+    }
   }
+  return true;
 };

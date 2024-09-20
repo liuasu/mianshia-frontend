@@ -23,6 +23,8 @@ const InitLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
   const initLoginUser = useCallback(async () => {
     const res = await getLoginUserUsingGet();
     if (res.data) {
+      // 保存用户登录态
+      dispatch(setLoginUser(res.data));
     } else {
       // setTimeout(() => {
       //   const testUser = {

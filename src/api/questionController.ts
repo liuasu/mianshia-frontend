@@ -1,3 +1,5 @@
+// @ts-ignore
+/* eslint-disable */
 import request from '@/libs/request';
 
 /** addQuestion POST /api/question/add */
