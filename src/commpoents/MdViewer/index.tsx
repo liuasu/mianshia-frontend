@@ -4,9 +4,10 @@ import highlight from "@bytemd/plugin-highlight";
 import "bytemd/dist/index.css";
 import "highlight.js/styles/vs.css";
 import "./index.css";
+import "github-markdown-css/github-markdown-light.css";
 
 interface Props {
-    value?: string;
+  value?: string;
 }
 
 const plugins = [gfm(), highlight()];
@@ -17,13 +18,13 @@ const plugins = [gfm(), highlight()];
  * @constructor
  */
 const MdViewer = (props: Props) => {
-    const { value = "" } = props;
+  const { value = "" } = props;
 
-    return (
-        <div className="md-viewer">
-            <Viewer value={value} plugins={plugins} />
-        </div>
-    );
+  return (
+    <div className="md-viewer">
+      <Viewer value={value} plugins={plugins} />
+    </div>
+  );
 };
 
 export default MdViewer;

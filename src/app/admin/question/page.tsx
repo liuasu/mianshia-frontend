@@ -11,8 +11,9 @@ import { PageContainer, ProTable } from "@ant-design/pro-components";
 import { Button, message, Space, Typography } from "antd";
 import React, { useRef, useState } from "react";
 import "./index.css";
-import {TagList} from "@/commpoents/TagList";
+import { TagList } from "@/commpoents/TagList";
 import MdEditor from "@/commpoents/MdEditor";
+import { UpdateQuestionBankModal } from "@/app/admin/question/components/UpdateQuestionBankModal";
 
 /**
  * 题目管理页面
@@ -24,6 +25,9 @@ const QuestionAdminPage: React.FC = () => {
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 是否显示更新窗口
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
+  // 是否显示更新所属题库窗口
+  const [updateQuestionBankModalVisible, setUpdateQuestionBankModalVisible] =
+    useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前题目点击的数据
   const [currentRow, setCurrentRow] = useState<API.Question>();
@@ -60,6 +64,13 @@ const QuestionAdminPage: React.FC = () => {
       dataIndex: "id",
       valueType: "text",
       hideInForm: true,
+      hideInSearch: true,
+    },
+    {
+      title: "所属题库",
+      dataIndex: "questionBankId",
+      hideInForm: true,
+      hideInTable: true,
     },
     {
       title: "标题",
@@ -71,13 +82,10 @@ const QuestionAdminPage: React.FC = () => {
       dataIndex: "content",
       valueType: "text",
       hideInSearch: true,
+      ellipsis: true,
       width: 240,
-      renderFormItem: (
-          item,
-          {fieldProps},
-          form,
-      ) => {
-        return <MdEditor {...fieldProps} />
+      renderFormItem: (item, { fieldProps }, form) => {
+        return <MdEditor {...fieldProps} />;
       },
     },
     {
@@ -86,12 +94,8 @@ const QuestionAdminPage: React.FC = () => {
       valueType: "text",
       hideInSearch: true,
       width: 640,
-      renderFormItem: (
-          item,
-          {fieldProps},
-          form,
-      ) => {
-        return <MdEditor {...fieldProps} />
+      renderFormItem: (item, { fieldProps }, form) => {
+        return <MdEditor {...fieldProps} />;
       },
     },
     {
@@ -101,10 +105,10 @@ const QuestionAdminPage: React.FC = () => {
       fieldProps: {
         mode: "tags",
       },
-      render: (_, record) =>{
+      render: (_, record) => {
         const tagList = JSON.parse(record.tags || "[]");
-        return <TagList tagList={tagList} />
-      }
+        return <TagList tagList={tagList} />;
+      },
     },
     {
       title: "创建用户",
@@ -142,23 +146,30 @@ const QuestionAdminPage: React.FC = () => {
       dataIndex: "option",
       valueType: "option",
       render: (_, record) => (
-          <Space size="middle">
-            <Typography.Link
-                onClick={() => {
-                  setCurrentRow(record);
-                  setUpdateModalVisible(true);
-                }}
-            >
-              修改
-            </Typography.Link>
-            <Typography.Link type="danger" onClick={() => handleDelete(record)}>
-              删除
-            </Typography.Link>
-          </Space>
+        <Space size="middle">
+          <Typography.Link
+            onClick={() => {
+              setCurrentRow(record);
+              setUpdateModalVisible(true);
+            }}
+          >
+            修改
+          </Typography.Link>
+          <Typography.Link
+              onClick={() => {
+                setCurrentRow(record);
+                setUpdateQuestionBankModalVisible(true);
+              }}
+          >
+            修改所属题库
+          </Typography.Link>
+          <Typography.Link type="danger" onClick={() => handleDelete(record)}>
+            删除
+          </Typography.Link>
+        </Space>
       ),
     },
   ];
-
 
   return (
     <PageContainer>
@@ -221,6 +232,13 @@ const QuestionAdminPage: React.FC = () => {
         }}
         onCancel={() => {
           setUpdateModalVisible(false);
+        }}
+      />
+      <UpdateQuestionBankModal
+        questionId={currentRow?.id as number}
+        visible={updateQuestionBankModalVisible}
+        onCancel={() => {
+          setUpdateQuestionBankModalVisible(false);
         }}
       />
     </PageContainer>

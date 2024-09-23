@@ -1,6 +1,6 @@
 "use server";
 import "./index.css";
-import { Avatar, Card, message } from "antd";
+import { Avatar, Button, Card, message } from "antd";
 import { getQuestionBankVoByIdUsingGet } from "@/api/questionBankController";
 import Meta from "antd/es/card/Meta";
 import Paragraph from "antd/es/typography/Paragraph";
@@ -27,6 +27,11 @@ export default async function BankPage({ params }) {
     message.error("获取失败,请再次尝试!" + e.message);
   }
 
+  // 获取第一道题
+  let questionId = undefined;
+  if (bank?.questionPage?.records && bank?.questionPage?.total > 0) {
+    questionId = bank?.questionPage.records[0].id;
+  }
   if (!bank) {
     return <div>题库获取失败,请刷新再次获取!!!</div>;
   }
@@ -42,7 +47,18 @@ export default async function BankPage({ params }) {
             </Title>
           }
           description={
-            <Paragraph type={"secondary"}>{bank.description}</Paragraph>
+            <>
+              <Paragraph type={"secondary"}>{bank.description}</Paragraph>
+              <Button
+                type={"primary"}
+                shape={"round"}
+                href={`/bank/${questionBankId}/question/${questionId}`}
+                target={"_bank"}
+                disabled={!questionId}
+              >
+                开始刷题
+              </Button>
+            </>
           }
         />
       </Card>
