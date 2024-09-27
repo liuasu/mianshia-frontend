@@ -1,5 +1,5 @@
 "use client";
-import { listQuestionVoByPageUsingPost } from "@/api/questionController";
+import {listQuestionVoByPageUsingPost, searchQuestionVoByPageUsingPost} from "@/api/questionController";
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { ProTable } from "@ant-design/pro-components";
 import React, { useRef, useState } from "react";
@@ -35,9 +35,19 @@ export const QuestionTable: React.FC = (props: Props) => {
       title: "标题",
       dataIndex: "title",
       valueType: "text",
+      hideInSearch:true,
       render: (_, record) => {
         return <Link href={`/question/${record.id}`}>{record.title}</Link>;
       },
+    },
+    {
+      title: "搜索",
+      dataIndex: "searchText",
+      valueType: "text",
+      hideInTable:true,
+      // render: (_, record) => {
+      //   return <Link href={`/question/${record.id}`}>{record.title}</Link>;
+      // },
     },
     {
       title: "标签",
@@ -78,10 +88,10 @@ export const QuestionTable: React.FC = (props: Props) => {
               return;
             }
           }
-          const sortField = Object.keys(sort)?.[0] || "crateTime";
+          const sortField = Object.keys(sort)?.[0] || "createTime";
           const sortOrder = sort?.[sortField] || "desc";
 
-          const { data, code } = await listQuestionVoByPageUsingPost({
+          const { data, code } = await searchQuestionVoByPageUsingPost({
             ...params,
             sortField,
             sortOrder,

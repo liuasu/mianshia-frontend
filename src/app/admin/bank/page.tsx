@@ -58,6 +58,8 @@ const QuestionBankAdminPage: React.FC = () => {
       dataIndex: "id",
       valueType: "text",
       hideInForm: true,
+      hideInTable:true,
+      hideInSearch:true,
     },
     {
       title: "标题",

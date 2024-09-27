@@ -37,7 +37,7 @@ export default async function BankPage({ params }) {
   }
 
   return (
-    <div id={"bank-page"} className={"max-width-content"}>
+    <div id={"bank-page"} className="max-width-content">
       <Card>
         <Meta
           avatar={<Avatar src={bank.picture} size={75} />}

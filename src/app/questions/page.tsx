@@ -2,7 +2,7 @@
 import "./index.css";
 import {message} from "antd";
 import Title from "antd/es/typography/Title";
-import {listQuestionVoByPageUsingPost} from "@/api/questionController";
+import {listQuestionVoByPageUsingPost, searchQuestionVoByPageUsingPost} from "@/api/questionController";
 import {QuestionTable} from "@/commpoents/QuestionTable";
 
 /**
@@ -16,11 +16,11 @@ export default async function QuestionsPage({searchParams}) {
   let questionList = [];
   let total = 0;
   try {
-    const res = await listQuestionVoByPageUsingPost({
-      title: searchText,
+    const res = await searchQuestionVoByPageUsingPost({
+      searchText,
       pageSize: 12,
       sortField: "createTime",
-      sortOrder: "desc",
+      sortOrder: "descend",
     });
     questionList = res.data.records ?? [];
     total = res.data.total;
@@ -29,7 +29,7 @@ export default async function QuestionsPage({searchParams}) {
   }
 
   return (
-    <div id={"questions-page"} className={"max-width-content"}>
+    <div id={"questions-page"} className="max-width-content">
       {/*题库*/}
       <Title level={3}>题目集</Title>
       <QuestionTable  defQuestionList={questionList} defTotal={total} defSearchParams={{title: searchText}}/>

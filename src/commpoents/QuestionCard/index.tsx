@@ -5,6 +5,7 @@ import React from "react";
 import Title from "antd/es/typography/Title";
 import { TagList } from "@/commpoents/TagList";
 import MdViewer from "@/commpoents/MdViewer";
+import { useAddUserSignInRecord } from "@/hooks/useAddUserSignInRecord";
 
 interface Props {
   question: API.QuestionVO;
@@ -17,21 +18,22 @@ interface Props {
  */
 export const QuestionCard = (props: Props) => {
   const { question } = props;
-
+  // 刷题进行签到
+  useAddUserSignInRecord();
   return (
-      <div id={"question-card"}>
-        <Card>
-          <Title level={1} style={{fontSize: 24}}>
-            {question.title}
-          </Title>
-          <TagList tagList={question.tagList}/>
-          <div style={{marginBottom: 15}}/>
-          <MdViewer value={question.content}/>
-        </Card>
-        <div style={{marginBottom: 15}}/>
-        <Card title={"推荐答案"}>
-          <MdViewer value={question.answer} />
-        </Card>
-      </div>
+    <div id={"question-card"}>
+      <Card>
+        <Title level={1} style={{ fontSize: 24 }}>
+          {question.title}
+        </Title>
+        <TagList tagList={question.tagList} />
+        <div style={{ marginBottom: 15 }} />
+        <MdViewer value={question.content} />
+      </Card>
+      <div style={{ marginBottom: 15 }} />
+      <Card title={"推荐答案"}>
+        <MdViewer value={question.answer} />
+      </Card>
+    </div>
   );
 };

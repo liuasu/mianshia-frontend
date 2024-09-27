@@ -38,6 +38,7 @@ const CreateModal: React.FC<Props> = (props) => {
 
   return (
     <Modal
+        width={"100%"}
       destroyOnClose
       title={"创建"}
       open={visible}

@@ -16,7 +16,7 @@ export default async function BankPage() {
     const res = await listQuestionBankVoByPageUsingPost({
       pageSize: 200,
       sortField: "createTime",
-      sortOrder: "desc",
+      sortOrder: "descend",
     });
     questionBankList = res.data.records ?? [];
   } catch (e) {
@@ -24,7 +24,7 @@ export default async function BankPage() {
   }
 
   return (
-    <div id={"bank-page"} className={"max-width-content"}>
+    <div id={"bank-page"} className="max-width-content">
       {/*题库*/}
       <Title level={3}>题库集</Title>
       <QuestionBankList questionBankList={questionBankList} />

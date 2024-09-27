@@ -16,7 +16,7 @@ export default async function HomePage() {
     const res = await listQuestionBankVoByPageUsingPost({
       pageSize: 12,
       sortField: "createTime",
-      sortOrder: "desc",
+      sortOrder: "descend",
     });
     questionBankList = res.data.records ?? [];
   } catch (e) {
@@ -26,7 +26,7 @@ export default async function HomePage() {
     const res = await listQuestionVoByPageUsingPost({
       pageSize: 12,
       sortField: "createTime",
-      sortOrder: "desc",
+      sortOrder: "descend",
     });
     questionList = res.data.records ?? [];
   } catch (e) {
@@ -34,7 +34,7 @@ export default async function HomePage() {
   }
 
   return (
-    <div id={"home-page"} className={"max-width-content"}>
+    <div id={"home-page"} className="max-width-content">
       {/*题库*/}
       <Flex justify={"space-between"} align={"center"}>
         <Title level={3}>最新题库</Title>
