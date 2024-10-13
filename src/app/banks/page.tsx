@@ -25,7 +25,6 @@ export default async function BankPage() {
 
   return (
     <div id={"bank-page"} className="max-width-content">
-      {/*题库*/}
       <Title level={3}>题库集</Title>
       <QuestionBankList questionBankList={questionBankList} />
     </div>

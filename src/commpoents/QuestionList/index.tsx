@@ -18,7 +18,6 @@ interface Props {
  */
 export const QuestionList = (props: Props) => {
   const { questionList = [], cardTitle, questionBankId } = props;
-  console.log(questionList);
   return (
     <Card className="question-list" title={cardTitle}>
       <List

@@ -8,7 +8,7 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { Button, message, Space, Typography } from "antd";
+import {Button, message, Space, Typography, Upload} from "antd";
 import React, { useRef, useState } from "react";
 import "./index.css";
 
@@ -58,8 +58,8 @@ const QuestionBankAdminPage: React.FC = () => {
       dataIndex: "id",
       valueType: "text",
       hideInForm: true,
-      hideInTable:true,
-      hideInSearch:true,
+      hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: "标题",
@@ -156,7 +156,6 @@ const QuestionBankAdminPage: React.FC = () => {
             sortOrder,
             ...filter,
           } as API.QuestionBankQueryRequest);
-
           return {
             success: code === 0,
             data: data?.records || [],

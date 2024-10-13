@@ -8,7 +8,6 @@ import store, { AppDispatch } from "@/stores";
 import { getLoginUserUsingGet } from "@/api/userController";
 import { setLoginUser } from "@/stores/loginUser";
 import { AccessLayout } from "@/access/AccessLayout";
-
 /**
  * 全局初始化
  * @param children
@@ -25,15 +24,6 @@ const InitLayout: React.FC<Readonly<{ children: React.ReactNode }>> = ({
     if (res.data) {
       // 保存用户登录态
       dispatch(setLoginUser(res.data));
-    } else {
-      // setTimeout(() => {
-      //   const testUser = {
-      //     userName: "测试",
-      //     id: 1,
-      //     userAvatar: "assets/logo.png",
-      //   };
-      //   dispatch(setLoginUser(testUser));
-      // }, 3000);
     }
   }, []);
   useEffect(() => {

@@ -6,19 +6,17 @@ import {
   deleteQuestionUsingPost,
   listQuestionByPageUsingPost,
 } from "@/api/questionController";
-import { PlusOutlined } from "@ant-design/icons";
-import type { ActionType, ProColumns } from "@ant-design/pro-components";
-import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { Button, message, Popconfirm, Space, Table, Typography } from "antd";
-import React, { useRef, useState } from "react";
+import {PlusOutlined} from "@ant-design/icons";
+import type {ActionType, ProColumns} from "@ant-design/pro-components";
+import {PageContainer, ProTable} from "@ant-design/pro-components";
+import {Button, message, Popconfirm, Space, Table, Typography} from "antd";
+import React, {useRef, useState} from "react";
 import "./index.css";
-import { TagList } from "@/commpoents/TagList";
+import {TagList} from "@/commpoents/TagList";
 import MdEditor from "@/commpoents/MdEditor";
-import { UpdateQuestionBankModal } from "@/app/admin/question/components/UpdateQuestionBankModal";
-import { Simulate } from "react-dom/test-utils";
-import cancel = Simulate.cancel;
-import { BatchAddQuestionBankModal } from "@/app/admin/question/components/BatchAddQuestionBankModal";
-import { BatchRemoveQuestionBankModal } from "@/app/admin/question/components/BatchRemoveQuestionBankModal";
+import {UpdateQuestionBankModal} from "@/app/admin/question/components/UpdateQuestionBankModal";
+import {BatchAddQuestionBankModal} from "@/app/admin/question/components/BatchAddQuestionBankModal";
+import {BatchRemoveQuestionBankModal} from "@/app/admin/question/components/BatchRemoveQuestionBankModal";
 
 /**
  * 题目管理页面
@@ -276,7 +274,6 @@ const QuestionAdminPage: React.FC = () => {
                   //批量删除题目
                   batchQuestions(selectedRows as any[]);
                 }}
-                onCancel={cancel}
                 okText="确认"
                 cancelText="取消"
               >
@@ -318,7 +315,6 @@ const QuestionAdminPage: React.FC = () => {
             total: Number(data?.total) || 0,
           };
         }}
-        columns={columns}
       />
 
       <CreateModal

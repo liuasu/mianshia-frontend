@@ -1,13 +1,11 @@
 "use client";
 import { Props } from "next/script";
 import "./index.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import React from "react";
 import ReactECharts from "echarts-for-react";
-import { listQuestionVoByPageUsingPost } from "@/api/questionController";
 import { message } from "antd";
-import {getUserSigninUsingGet, getUserSigninUsingPost} from "@/api/userController";
+import { getUserSigninUsingGet } from "@/api/userController";
 
 interface Props {}
 

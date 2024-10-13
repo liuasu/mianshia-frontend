@@ -1,7 +1,8 @@
 import { addQuestionBankUsingPost } from "@/api/questionBankController";
 import { ProColumns, ProTable } from "@ant-design/pro-components";
-import { message, Modal } from "antd";
+import { Button, message, Modal, Upload } from "antd";
 import React from "react";
+import { UploadOutlined } from "@ant-design/icons";
 
 interface Props {
   visible: boolean;

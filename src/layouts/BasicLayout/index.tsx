@@ -1,5 +1,5 @@
 "use client";
-import {GithubFilled, LogoutOutlined, UserOutlined} from "@ant-design/icons";
+import { GithubFilled, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { ProLayout } from "@ant-design/pro-components";
 import { Dropdown, message } from "antd";
 import React from "react";
@@ -66,7 +66,7 @@ export default function BasicLayout({ children }: Props) {
             src="/assets/logo.png"
             height={32}
             width={32}
-            alt="面试刷题网 - 程序眼六啊朔"
+            alt="面试刷题网 - 程序员六啊朔"
           />
         }
         location={{
@@ -76,7 +76,7 @@ export default function BasicLayout({ children }: Props) {
           src:
             loginUser.userAvatar ||
             "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg",
-          title: loginUser?.userName || "七妮妮",
+          title: loginUser?.userName || DEFAULT_USER.userName,
           render: (props, dom) => {
             if (!loginUser.id) {
               return (
@@ -108,8 +108,8 @@ export default function BasicLayout({ children }: Props) {
                     const { key } = event;
                     if (key === "logout") {
                       userLogout();
-                    }else if(key === "userCenter") {
-                    router.push("/user/center")
+                    } else if (key === "userCenter") {
+                      router.push("/user/center");
                     }
                   },
                 }}
@@ -122,7 +122,8 @@ export default function BasicLayout({ children }: Props) {
         actionsRender={(props) => {
           if (props.isMobile) return [];
           return [
-            <SearchInput />,
+            <SearchInput  />,
+            // <SearchInput key={"SearchInput"} />,
             <a
               key={"github"}
               href={"https://github.com/liuasu"}
@@ -139,12 +140,6 @@ export default function BasicLayout({ children }: Props) {
               {title}
             </a>
           );
-          //
-          // if (document.body.clientWidth < 1400) {
-          //   return defaultDom;
-          // }
-          // if (_.isMobile) return defaultDom;
-          // return <>{defaultDom}</>;
         }}
         // 渲染底部栏
         footerRender={() => {

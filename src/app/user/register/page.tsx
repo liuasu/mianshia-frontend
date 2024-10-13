@@ -40,9 +40,9 @@ const UserRegisterPage: React.FC = (props) => {
       <LoginForm<API.UserAddRequest>
         form={form}
         logo={
-          <Image src="/assets/logo.png" alt="面试鸭" width={44} height={44} />
+          <Image src="/assets/logo.png" alt="六啊朔" width={44} height={44} />
         }
-        title="面试鸭 - 用户注册"
+        title="六啊朔 - 用户注册"
         subTitle="程序员面试刷题网站"
         onFinish={doSubmit}
         submitter={{
@@ -100,7 +100,7 @@ const UserRegisterPage: React.FC = (props) => {
           }}
         >
           已有账号 -
-          <Link prefetch={false} href={"/user/register"}>
+          <Link prefetch={false} href={"/user/login"}>
             去登录!
           </Link>
         </div>

@@ -1,7 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "@/stores/index";
-import ACCESS_ENUM from "@/access/accessEnum";
-import { DEFAULT_USER } from "@/constants/user";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {DEFAULT_USER} from "@/constants/user";
 
 /**
  * 登录用户全局状态
